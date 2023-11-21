@@ -9,7 +9,7 @@
 
 <!-- 타이틀 -->
 <header class="panel-heading">
-    <h1 class="h1" th:text="${pageTitle}+' 등록'"></h1>
+    <h1 class="h1">이력서 등록폼</h1>
 </header>
 
 
@@ -26,17 +26,24 @@
                     <label for="name">이름 </label>
                 </div>
                 <div class="col-sm-4">
-                    <input type="text" id="name" name="name" title="자산번호 입력" class="form-control indispensable"
-                           required="required" maxLength="30" value=""/>
+                    <input type="text" id="name" name="name" title="이름 입력" class="form-control indispensable"
+                           required="required" value=""/>
                 </div>
             </div>
             <div class="form-group">
+                <div class="col-sm-2 control-label col-sm-2">
+                    <label for="email">이메일 </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" id="email" name="email" title="이메일 입력" class="form-control indispensable"
+                           required="required" value=""/>
+                </div>
                 <div class="col-sm-2 control-label col-sm-2">
                     <label for="age">나이 </label>
                 </div>
                 <div class="col-sm-4">
                     <input type="text" id="age" name="age" title="나이 입력" class="form-control indispensable"
-                           required="required" maxLength="30" value=""/>
+                           required="required" value=""/>
                 </div>
             </div>
             <div class="form-group">
@@ -69,7 +76,7 @@
                     <i class="fa fa-save" aria-hidden="true"></i> 등록
                 </button>
             </div>
- 
+
         </div>
 
 

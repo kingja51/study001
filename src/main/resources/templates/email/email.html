@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
 
-    <title th:text="${dataBean.title}"></title>
+    <title th:text="${resultBean.title}"></title>
     <style>
         *, *:before, *.after {
             box-sizing: border-box;
@@ -51,25 +51,27 @@
     <table border="0" cellspacing="0" cellpadding="0" align="left" width="100%">
         <tr>
             <td colspan="6" style="padding:50px;">
-                <p align="center"><strong style="font-size:30px;" th:text="${dataBean.title}"></strong></p>
+                <p align="center"><strong style="font-size:30px;" th:text="${resultBean.title}"></strong></p>
             </td>
         </tr>
+
         <tr>
             <td width="100"><p align="center">성명 </p></td>
-            <td width="200" colspan="2"><p align="center"><span th:text="${dataBean.name}"></span></p></td>
-            <td width="100"><p align="center">지급일 </p></td>
-            <td width="200" colspan="2"><p align="center"><span th:text="${dataBean.paymentDate}"></span></p></td>
+            <td width="200" colspan="2"><p align="center"><span th:text="${resultBean.name}"></span></p></td>
+            <td width="100"><p align="center">나이 </p></td>
+            <td width="200" colspan="2"><p align="center"><span th:text="${resultBean.age}"></span></p></td>
         </tr>
         <tr>
-            <td width="100"><p align="center">부서 </p></td>
-            <td width="200" colspan="2"><p align="center"><span th:text="${dataBean.department}"></span></p></td>
-            <td width="100"><p align="center">직책 </p></td>
-            <td width="200" colspan="2"><p align="center"><span th:text="${dataBean.position}"></span></p></td>
+            <td width="100"><p align="center">이메일 </p></td>
+            <td width="500" colspan="5"><p align="center"><span th:text="${resultBean.email}"></span></p></td>
+        </tr>
+        <tr>
+            <td width="100"><p align="center">주소 </p></td>
+            <td width="500" colspan="5"><p align="center"><span th:text="${resultBean.addr}"></span></p></td>
         </tr>
         <tr>
             <td colspan="6" style="padding:50px;">
-                <p align="center" style="font-size:20px">귀하의 노고에 감사드립니다</p>
-				<p align="center" style="font-size:30px;margin-top:10px;">㈜지오넷</p></td>
+                <p align="center" style="font-size:30px;margin-top:10px;">㈜지오넷</p></td>
         </tr>
     </table>
 </div>
