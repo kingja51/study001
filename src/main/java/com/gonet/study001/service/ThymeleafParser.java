@@ -55,7 +55,6 @@ public class ThymeleafParser {
                         BaseFont.IDENTITY_H,
                         BaseFont.EMBEDDED);
         renderer.setDocumentFromString(html);
-        renderer.setDocumentFromString(html);
         renderer.layout();
         renderer.createPDF(outputStream);
 
