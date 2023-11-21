@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+
+    <title th:text="${dataBean.title}"></title>
+    <style>
+        *, *:before, *.after {
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            font-style: normal;
+            margin: 0;
+            padding: 0
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: #fff
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #fff;
+            font-family: NanumBarunGothic;
+        }
+
+        table {
+            border: 1px solid #ddd;
+        }
+
+        table td {
+            border-left: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            padding: 6px;
+        }
+
+        table td:first-child {
+            border-left: 0
+        }
+
+        table tr:last-child td {
+            border-bottom: none;
+        }
+    </style>
+
+</head>
+<body>
+<div style="width:100%;margin: 0 auto;padding:6px;background: #fff;border:none;border-radius:initial;background:initial;box-shadow:initial;page-break-after:always;webkit-print-color-adjust: exact;">
+    <table border="0" cellspacing="0" cellpadding="0" align="left" width="100%">
+        <tr>
+            <td colspan="6" style="padding:50px;">
+                <p align="center"><strong style="font-size:30px;" th:text="${dataBean.title}"></strong></p>
+            </td>
+        </tr>
+        <tr>
+            <td width="100"><p align="center">성명 </p></td>
+            <td width="200" colspan="2"><p align="center"><span th:text="${dataBean.name}"></span></p></td>
+            <td width="100"><p align="center">지급일 </p></td>
+            <td width="200" colspan="2"><p align="center"><span th:text="${dataBean.paymentDate}"></span></p></td>
+        </tr>
+        <tr>
+            <td width="100"><p align="center">부서 </p></td>
+            <td width="200" colspan="2"><p align="center"><span th:text="${dataBean.department}"></span></p></td>
+            <td width="100"><p align="center">직책 </p></td>
+            <td width="200" colspan="2"><p align="center"><span th:text="${dataBean.position}"></span></p></td>
+        </tr>
+        <tr>
+            <td colspan="6" style="padding:50px;">
+                <p align="center" style="font-size:20px">귀하의 노고에 감사드립니다</p>
+				<p align="center" style="font-size:30px;margin-top:10px;">㈜지오넷</p></td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

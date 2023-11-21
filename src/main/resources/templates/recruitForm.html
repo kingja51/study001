@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+
+    <title>Title</title>
+</head>
+<body>
+
+<!-- 타이틀 -->
+<header class="panel-heading">
+    <h1 class="h1" th:text="${pageTitle}+' 등록'"></h1>
+</header>
+
+
+<form id="searchForm" name="searchForm" action="/send/email" method="post" enctype="multipart/form-data">
+
+
+    <div class="container">
+        <!-- 등록폼 -->
+        <div class="form-horizontal bucket-form">
+
+
+            <div class="form-group">
+                <div class="col-sm-2 control-label col-sm-2">
+                    <label for="name">이름 </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" id="name" name="name" title="자산번호 입력" class="form-control indispensable"
+                           required="required" maxLength="30" value=""/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label col-sm-2">
+                    <label for="age">나이 </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" id="age" name="age" title="나이 입력" class="form-control indispensable"
+                           required="required" maxLength="30" value=""/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label col-sm-2">
+                    <label for="addr">주소 </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" id="addr" name="addr" title="주소 입력" class="form-control" maxLength="255"
+                           value=""/>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-sm-2 control-label col-sm-2">
+                    <label for="atchFileId">사진 </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="file" id="file" name="file" title="사진 입력" class="form-control" value=""/>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- 등록버튼 -->
+        <div class="box-footer">
+            <div class="pull-right">
+                <button type="submit" class="btn btn-primary" title="등록 버튼">
+                    <i class="fa fa-save" aria-hidden="true"></i> 등록
+                </button>
+            </div>
+ 
+        </div>
+
+
+    </div>
+</form>
+</body>
+</html>
