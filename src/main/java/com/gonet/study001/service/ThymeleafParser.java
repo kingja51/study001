@@ -28,10 +28,25 @@ public class ThymeleafParser {
 
     private final SpringTemplateEngine templateEngine;
 
-    public String parseThymeleafTemplate(RecruitVO dataVO, String type) {
-        return setContext(dataVO, type);
+    /**
+     * thymeleaf를 통해서 만든 html 리턴
+     * @param dataVO
+     * @param thymeleafFileName
+     * @return
+     */
+    public String parseThymeleafTemplate(RecruitVO dataVO, String thymeleafFileName) {
+        Context context = new Context();
+        context.setVariable("resultBean", dataVO);
+        return templateEngine.process("email/" + thymeleafFileName, context);
     }
 
+    /**
+     * html 을 받아서 pdf 파일을 만든다.
+     * @param html
+     * @param fileName
+     * @throws IOException
+     * @throws DocumentException
+     */
     public void generatePdfFromHtml(String html, String fileName) throws IOException, DocumentException {
 
         String outputFolder = fileUploadDir + File.separator + "gonet";
@@ -59,14 +74,6 @@ public class ThymeleafParser {
         renderer.createPDF(outputStream);
 
         outputStream.close();
-    }
-
-
-    // thymeleaf를 통한 html 적용
-    public String setContext(RecruitVO dataBean, String type) {
-        Context context = new Context();
-        context.setVariable("resultBean", dataBean);
-        return templateEngine.process("email/" + type, context);
     }
 
 }
