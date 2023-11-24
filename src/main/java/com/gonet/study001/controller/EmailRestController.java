@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,17 +33,13 @@ public class EmailRestController {
 
     // 회원가입 이메일 인증 - 요청 시 body로 인증번호 반환하도록 작성하였음
     @PostMapping("/send/email")
-    public ResponseEntity sendJoinMail(MultipartFile file, RecruitVO recruitVO) throws Exception {
-
+    public ResponseEntity sendJoinMail(MultipartFile file, RecruitVO recruitVO, ModelMap model) throws Exception {
+        recruitVO.setTitle("이력서");
         String outputFolder = fileUploadDir + File.separator + "gonet";
-        
-        
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM");
         Calendar cal = new GregorianCalendar();
         Date date = cal.getTime();
-
-
-
 
         recruitVO.setTitle("이력서");
         String name = recruitVO.getName();
@@ -52,7 +49,7 @@ public class EmailRestController {
 
         if (file != null) {
 
-            fileName = "R"+date.getTime()+"_"+file.getOriginalFilename();
+            fileName = "R" + date.getTime() + "_" + file.getOriginalFilename();
 
             log.info("첨부파일 file.getOriginalFilename() = {}", file.getOriginalFilename());
             log.info("첨부파일 file.getName() = {}", file.getName());
@@ -63,18 +60,20 @@ public class EmailRestController {
                 fDir.mkdirs();
             }
 
-            file.transferTo(new File(outputFolder +File.separator+fileName));
-            recruitVO.setPhoto(fileName);
+            file.transferTo(new File(outputFolder + File.separator + fileName));
+
+            // 파일을 절대 경로를 보낸다. FileInputStream 으로 보낸다.
+            recruitVO.setPhoto(outputFolder + File.separator + fileName);
+            log.info("===== recruitVO.getPhoto() = {}", recruitVO.getPhoto());
         }
-
-
 
         // pdf 만들기
         String html = thymeleafParser.parseThymeleafTemplate(recruitVO, "email");
-        String pdfFileName = "R"+date.getTime()+"_"+name+".pdf";
+
+        log.info("===== html = {}", html);
+
+        String pdfFileName = "R" + date.getTime() + "_" + name + ".pdf";
         thymeleafParser.generatePdfFromHtml(html, pdfFileName);
-
-
 
         String code = emailService.sendMail(recruitVO, htmlName, fileName, pdfFileName);
 
@@ -82,6 +81,5 @@ public class EmailRestController {
 
         return ResponseEntity.ok(code);
     }
-
 
 }

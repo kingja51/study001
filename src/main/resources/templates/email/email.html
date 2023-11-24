@@ -58,12 +58,27 @@
         <tr>
             <td width="100"><p align="center">성명 </p></td>
             <td width="200" colspan="2"><p align="center"><span th:text="${resultBean.name}"></span></p></td>
-            <td width="100"><p align="center">나이 </p></td>
-            <td width="200" colspan="2"><p align="center"><span th:text="${resultBean.age}"></span></p></td>
+            <td width="100"><p align="center">사진 </p></td>
+            <td width="200" colspan="2">
+                <img id="photo1" th:src="@{${resultBean.photo}}" width="200"/>
+            </td>
+
+        </tr>
+        <tr>
+            <td width="100"><p align="center">이름 </p></td>
+            <td width="200" colspan="2"><p align="center"><span th:text="${resultBean.name}"></span></p></td>
+            <td width="100"><p align="center">사진 </p></td>
+            <td width="200" colspan="2">
+                <img id="photo2" th:src="@{${resultBean.photo}}" width="200"/>
+            </td>
+
         </tr>
         <tr>
             <td width="100"><p align="center">이메일 </p></td>
-            <td width="500" colspan="5"><p align="center"><span th:text="${resultBean.email}"></span></p></td>
+            <td width="500" colspan="2"><p align="center"><span th:text="${resultBean.email}"></span></p></td>
+            <td width="100"><p align="center">나이 </p></td>
+            <td width="200" colspan="2"><p align="center"><span th:text="${resultBean.age}"></span></p></td>
+
         </tr>
         <tr>
             <td width="100"><p align="center">주소 </p></td>
@@ -71,7 +86,10 @@
         </tr>
         <tr>
             <td colspan="6" style="padding:50px;">
-                <p align="center" style="font-size:30px;margin-top:10px;">㈜지오넷</p></td>
+                <p align="center" style="font-size:30px;margin-top:10px;">㈜지오넷</p>
+
+                <img id="logo" th:src="@{classpath:static/uloads/gonet/logo.png}" width="200"/>
+            </td>
         </tr>
     </table>
 </div>

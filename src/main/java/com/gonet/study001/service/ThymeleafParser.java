@@ -1,21 +1,24 @@
 package com.gonet.study001.service;
 
 import com.gonet.study001.domain.RecruitVO;
+import com.gonet.study001.util.B64ImgReplacedElementFactory;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.pdf.BaseFont;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.xhtmlrenderer.layout.SharedContext;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
+import java.util.Base64;
 
 @Slf4j
 @Service
@@ -35,6 +38,9 @@ public class ThymeleafParser {
      * @return
      */
     public String parseThymeleafTemplate(RecruitVO dataVO, String thymeleafFileName) {
+
+
+        log.info("===== dataVO.getPhoto() = {}", dataVO.getPhoto());
         Context context = new Context();
         context.setVariable("resultBean", dataVO);
         return templateEngine.process("email/" + thymeleafFileName, context);
@@ -62,6 +68,13 @@ public class ThymeleafParser {
         OutputStream outputStream = new FileOutputStream(filePath);
 
         ITextRenderer renderer = new ITextRenderer();
+        SharedContext sharedContext = renderer.getSharedContext();
+        sharedContext.setPrint(true);
+        sharedContext.setInteractive(false);
+//just set the factory here
+        sharedContext.setReplacedElementFactory(new B64ImgReplacedElementFactory());
+        sharedContext.getTextRenderer().setSmoothingThreshold(0);
+
         renderer.getFontResolver()
                 .addFont(
                         new ClassPathResource("/templates/font/NanumBarunGothic/NanumBarunGothic.ttf")
@@ -74,6 +87,7 @@ public class ThymeleafParser {
         renderer.createPDF(outputStream);
 
         outputStream.close();
+
     }
 
 }
