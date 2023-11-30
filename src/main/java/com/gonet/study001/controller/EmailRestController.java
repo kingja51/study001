@@ -1,16 +1,19 @@
 package com.gonet.study001.controller;
 
 
+import com.gonet.study001.domain.Recruit;
 import com.gonet.study001.domain.RecruitVO;
+import com.gonet.study001.repository.jpa.RecruitRepository;
 import com.gonet.study001.service.EmailService;
 import com.gonet.study001.service.ThymeleafParser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -20,20 +23,37 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 @Slf4j
-@RestController
+@Controller
 @RequiredArgsConstructor
 public class EmailRestController {
 
     private final EmailService emailService;
     private final ThymeleafParser thymeleafParser;
+    private final RecruitRepository recruitRepository;
 
 
     @Value("${file-upload-dir}")
     private String fileUploadDir;
 
-    // 회원가입 이메일 인증 - 요청 시 body로 인증번호 반환하도록 작성하였음
-    @PostMapping("/send/email")
-    public ResponseEntity sendJoinMail(MultipartFile file, RecruitVO recruitVO, ModelMap model) throws Exception {
+
+    @GetMapping("/send/emailForm")
+    public String emailForm() {
+        return "emailForm";
+    }
+
+
+    /**
+     * 회원가입 이메일 인증 - 요청 시 body로 인증번호 반환하도록 작성하였음
+     *
+     * @param file
+     * @param recruitVO
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("/send/emailInsert")
+    public String emailInsert(MultipartFile file, RecruitVO recruitVO, ModelMap model) throws Exception {
+
         recruitVO.setTitle("이력서");
         String outputFolder = fileUploadDir + File.separator + "gonet";
 
@@ -68,18 +88,25 @@ public class EmailRestController {
         }
 
         // pdf 만들기
-        String html = thymeleafParser.parseThymeleafTemplate(recruitVO, "email");
-
-        log.info("===== html = {}", html);
-
         String pdfFileName = "R" + date.getTime() + "_" + name + ".pdf";
+        String html = thymeleafParser.parseThymeleafTemplate(recruitVO, "email");
         thymeleafParser.generatePdfFromHtml(html, pdfFileName);
 
+
+        // 테이블 저장
+        recruitVO.setAtchFile1(fileName);
+        Recruit recruit = new Recruit(recruitVO.getName(), recruitVO.getEmail(), recruitVO.getAge(), recruitVO.getAddr(), recruitVO.getSchool(), recruitVO.getPhoto(), recruitVO.getAtchFile1(), recruitVO.getAtchFile2());
+        recruitRepository.save(recruit);
+
+
+        // 이메일발송
         String code = emailService.sendMail(recruitVO, htmlName, fileName, pdfFileName);
 
-        log.info("메일 발송 결과 코드 = {}", code);
+        // log.info("메일 발송 결과 코드 = {}", code);
 
-        return ResponseEntity.ok(code);
+        // return ResponseEntity.ok(code);
+        return "redirect:/mng/recruit/list";
+
     }
 
 }
