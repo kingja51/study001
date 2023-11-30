@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
 
-    <title th:text="${resultBean.title}"></title>
+    <title>상세</title>
     <style>
         *, *:before, *.after {
             box-sizing: border-box;
@@ -50,34 +50,29 @@
 <div style="width:100%;margin: 0 auto;padding:6px;background: #fff;border:none;border-radius:initial;background:initial;box-shadow:initial;page-break-after:always;webkit-print-color-adjust: exact;">
     <table border="0" cellspacing="0" cellpadding="0" align="left" width="100%">
         <tr>
-            <td colspan="6" style="padding:50px;">
-                <p align="center"><strong style="font-size:30px;" th:text="${resultBean.title}"></strong></p>
-            </td>
-        </tr>
-
-        <tr>
+            <td width="100"><p align="center">NO </p></td>
+            <td width="200"><p align="center"><span th:text="${resultBean.id}"></span></p></td>
             <td width="100"><p align="center">성명 </p></td>
-            <td width="200" colspan="2"><p align="center"><span th:text="${resultBean.name}"></span></p></td>
-            <td width="100"><p align="center">나이 </p></td>
-            <td width="200" colspan="2"><p align="center"><span th:text="${resultBean.age}"></span></p></td>
+            <td width="200"><p align="center"><span th:text="${resultBean.name}"></span></p></td>
         </tr>
         <tr>
             <td width="100"><p align="center">이메일 </p></td>
-            <td width="500" colspan="5"><p align="center"><span th:text="${resultBean.email}"></span></p></td>
-        </tr>
-        <tr>
+            <td width="200"><p align="center"><span th:text="${resultBean.email}"></span></p></td>
             <td width="100"><p align="center">주소 </p></td>
-            <td width="500" colspan="5"><p align="center"><span th:text="${resultBean.addr}"></span></p></td>
+            <td width="200"><p align="center"><span th:text="${resultBean.addr}"></span></p></td>
         </tr>
         <tr>
-            <td colspan="6" style="padding:50px;">
-                <p align="center" style="font-size:30px;margin-top:10px;">㈜지오넷</p>
-                <img src="https://www.agencygo.net/kr/img/main/2023/f_logo.png" />
+            <td width="100"><p align="center">사진 </p></td>
+            <td width="200">
+                <img id="photo1" th:src="@{'/uloads/gonet/'+${resultBean.atchFile1}}" width="200"/>
+            </td>
+            <td width="100"><p align="center">pdf </p></td>
+            <td width="200">
+                <a th:href="@{'/uloads/gonet/'+${resultBean.atchFile2}}">[[${resultBean.atchFile2}]]</a>
 
             </td>
         </tr>
     </table>
 </div>
-
 </body>
 </html>

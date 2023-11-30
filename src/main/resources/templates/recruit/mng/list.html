@@ -1,0 +1,55 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>목록</title>
+    <style>
+        body {
+            width: 100%;
+            font-size: 12px;
+            font-weight: lighter;
+            color: #000;
+            line-height: 180%;
+            font-family: NanumBarunGothic, serif;
+        }
+    </style>
+
+</head>
+<body>
+
+<table border=1 cellspacing=1 cellpadding=1 width="95%">
+    <thead>
+    <tr>
+        <th align="center">NO</th>
+        <th align="center">성명</th>
+        <th align="center">이메일</th>
+        <th align="center">나이</th>
+        <th align="center">주소</th>
+        <th align="center">사진</th>
+        <th align="center">비고</th>
+
+
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="resultBean : ${resultList}" >
+        <td align="center" th:text="${resultBean.id}"></td>
+        <td align="center" th:text="${resultBean.name}"></td>
+        <td align="center" th:text="${resultBean.email}"></td>
+        <td align="center" th:text="${resultBean.age}"></td>
+        <td align="center" th:text="${resultBean.addr}"></td>
+        <td align="center">
+
+            <img id="photo1" th:src="@{'/uloads/gonet/'+${resultBean.atchFile1}}" width="200"/>
+        </td>
+        <td align="center">
+            <a th:href="@{'/mng/recruit/modify?id='+${resultBean.id}}">수정</a>
+            <a th:href="@{'/mng/recruit/view?id='+${resultBean.id}}">상세</a>
+            <a th:href="@{'/mng/recruit/delete?id='+${resultBean.id}}">삭제</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
